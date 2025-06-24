@@ -597,7 +597,7 @@ void ThornsBasicAttackM2Ability(BarrackThorns npc, float gameTime, int EnemyToAt
 				{
 					npc.AddGesture("ACT_THORNS_ATTACK_2_FAST");
 					npc.PlaySwordSound();
-					float Attackrate = (0.4 * npc.BonusFireRate);
+					float Attackrate = (0.75 * npc.BonusFireRate);
 					float AnimRate = 0.3;
 					if(Attackrate <= 0.3)
 					{
