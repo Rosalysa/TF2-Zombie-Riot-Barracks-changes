@@ -493,8 +493,8 @@ void OnMapStart_NPC_Base()
 	PrecacheSound(SOUND_DANGER_KILL_THIS_GUY_IMMEDIATELY);
 	PrecacheSound(SOUND_HHH_DEATH);
 	PrecacheModel(BONEZONE_MODEL);
-	PrecacheModel(BONEZONE_MODEL_BOSS);
-	PrecacheModel(MODEL_SSB);
+//	PrecacheModel(BONEZONE_MODEL_BOSS);
+//	PrecacheModel(MODEL_SSB);
 	PrecacheSound(SND_TRANSFORM);
 	PrecacheSound(SND_GIB_SKELETON);
 	#endif
@@ -886,7 +886,7 @@ methodmap CClotBody < CBaseCombatCharacter
 		int sound = GetRandomInt(0, sizeof(g_GibSoundMetal) - 1);
 		
 		if(attacker == -1)
-			EmitSoundToAll(g_GibSoundMetal[sound], this.index, SNDCHAN_AUTO, 80, _, 1.0, _, _);
+			EmitSoundToAll(g_GibSoundMetal[sound], this.index, SNDCHAN_AUTO, 80, _, 0.8, _, _);
 		else
 		{
 			for(int client=1; client<=MaxClients; client++)
@@ -895,11 +895,11 @@ methodmap CClotBody < CBaseCombatCharacter
 				{
 					if(attacker == client)
 					{
-						EmitSoundToClient(client, g_GibSoundMetal[sound], attacker, SNDCHAN_AUTO, 80, _, 1.0);
+						EmitSoundToClient(client, g_GibSoundMetal[sound], attacker, SNDCHAN_AUTO, 80, _, 0.8);
 					}
 					else
 					{
-						EmitSoundToClient(client, g_GibSoundMetal[sound], this.index, SNDCHAN_AUTO, 80, _, 1.0);
+						EmitSoundToClient(client, g_GibSoundMetal[sound], this.index, SNDCHAN_AUTO, 80, _, 0.8);
 					}
 				}
 			}
