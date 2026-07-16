@@ -335,12 +335,18 @@ methodmap ObjectBarracks < ObjectGeneric
 static bool ClotInteract(int client, int weapon, ObjectHealingStation npc)
 {
 	int Owner = GetEntPropEnt(npc.index, Prop_Send, "m_hOwnerEntity");
-	if (Barracks_GetInfo(Owner, 1) == -1)
+    if (Owner == -1 || WeaponPap[Owner] < 0)
     {
-		ClientCommand(client, "playgamesound items/medshotno1.wav");
-		DestroyBuildingDo(npc.index);
-		SPrintToChat(client, "%t", "The Blacksmith Failed!");
-		return false;
+        float vecMe[3];
+        WorldSpaceCenter(npc.index, vecMe);
+        vecMe[2] += 45.0;
+        TE_Particle("asplode_hoodoo", vecMe, NULL_VECTOR, NULL_VECTOR, client, _, _, _, _, _, _, _, _, _, 0.0);
+
+        ClientCommand(client, "playgamesound items/medshotno1.wav");
+
+        DestroyBuildingDo(npc.index);
+        SPrintToChat(client, "%t", "The Blacksmith Failed!");
+        return false;
     }
 	if(Owner != client)
 		return false;
