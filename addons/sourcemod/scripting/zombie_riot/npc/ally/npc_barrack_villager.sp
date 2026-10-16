@@ -318,7 +318,16 @@ public void BarrackVillager_ClotThink(int iNPC)
 					float MePos[3];
 					GetEntPropVector(npc.index, Prop_Data, "m_vecAbsOrigin", MePos);
 					float flDistanceToTarget = GetVectorDistance(VillagerRepairFocusLoc[npc.index], MePos, true);
-					if(flDistanceToTarget < (25.0*25.0))
+					if(Rogue_Mode() && flDistanceToTarget > (1000.0 * 1000.0))	// Resets the villager if he gets teleported away in Rogue Mode and makes him retreat to barracks
+					{
+						npc.i_VillagerSpecialCommand = Villager_Command_Default;
+						npc.CmdOverride = Command_Retreat;
+						npc.m_iChanged_WalkCycle = 0;
+						npc.StopPathing();
+						IngoreBarracksCommands = false;
+						CPrintToChat(client, "{green}Villager Minion{default}: I've been moved too far from my gathering spot, i'll await new orders.");
+					}
+					else if(flDistanceToTarget < (25.0*25.0))
 					{
 						SummonerRenerateResources(client, 0.26, 1.4);
 						if(npc.m_iChanged_WalkCycle != 7)
